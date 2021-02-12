@@ -47,6 +47,12 @@ struct HostingWindowFinder: NSViewRepresentable {
                 self.callback(view?.window)
             }
         }
+        
+        // Download updates
+        DispatchQueue.main.asyncAfter(deadline: .now()+2) {
+            SU.Download()
+        }
+        
         return view
     }
     func updateNSView(_ nsView: NSView, context: Context) {}
