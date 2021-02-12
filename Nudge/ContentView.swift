@@ -38,7 +38,7 @@ struct HostingWindowFinder: NSViewRepresentable {
         let view = NSView()
         if randomDelay {
             let randomDelaySeconds = Int.random(in: 1...maxRandomDelayInSeconds)
-            print("Delaying initial run by", String(randomDelaySeconds), "seconds...")
+            Log.debug(message: "Delaying initial run by \(String(randomDelaySeconds)) seconds")
             DispatchQueue.main.asyncAfter(deadline: .now() + Double(randomDelaySeconds)) { [weak view] in
                 self.callback(view?.window)
             }

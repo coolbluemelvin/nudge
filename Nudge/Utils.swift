@@ -11,7 +11,7 @@ import SystemConfiguration
 
 struct Utils {
     func activateNudge() {
-        print("Re-activating Nudge")
+        Log.info(message: "Re-activating Nudge")
         NSApp.activate(ignoringOtherApps: true)
     }
 
@@ -154,7 +154,7 @@ struct Utils {
         guard let url = URL(string: informationButtonPath) else {
             return
         }
-        print("User clicked moreInfo button.")
+        Log.info(message: "User clicked moreInfo button.")
         NSWorkspace.shared.open(url)
     }
     

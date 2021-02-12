@@ -18,9 +18,9 @@ func nudgeStartLogic() {
             return
         } else {
             if Utils().demoModeEnabled() {
-                print("Device in demo mode")
+                Log.info(message: "Device in demo mode")
             } else {
-                print("Device fully up-to-date.")
+                Log.info(message: "Device fully up-to-date.")
                 AppKit.NSApp.terminate(nil)
             }
         }
@@ -44,7 +44,7 @@ func needToActivateNudge(deferralCountVar: Int, lastRefreshTimeVar: Date) -> Boo
 
     // The first time the main timer contoller hits we don't care
     if !afterFirstRun {
-        print("First run detected")
+        Log.info(message: "First run detected")
         _ = afterFirstRun = true
         _ = lastRefreshTime = Date()
         return false
@@ -60,14 +60,14 @@ func needToActivateNudge(deferralCountVar: Int, lastRefreshTimeVar: Date) -> Boo
     // Don't nudge if major upgrade is frontmostApplication
     if FileManager.default.fileExists(atPath: majorUpgradeAppPath) {
         if NSURL.fileURL(withPath: majorUpgradeAppPath) == frontmostApplication?.bundleURL {
-            print("Upgrade app is currently frontmostApplication")
+            Log.info(message: "Upgrade app is currently frontmostApplication")
             return false
         }
     }
     
     // Don't nudge if acceptable apps are frontmostApplication
     if acceptableApps.contains((frontmostApplication?.bundleIdentifier!)!) {
-        print("An acceptable app is currently frontmostApplication")
+        Log.info(message: "An acceptable app is currently frontmostApplication")
         return false
     }
     
@@ -77,7 +77,7 @@ func needToActivateNudge(deferralCountVar: Int, lastRefreshTimeVar: Date) -> Boo
         _ = lastRefreshTime = Date()
         Utils().activateNudge()
         if deferralCountVar > allowedDeferrals  {
-            print("Nudge deferral count over threshold")
+            Log.warning(message: "Nudge deferral count over threshold")
             Utils().updateDevice()
         }
         return true

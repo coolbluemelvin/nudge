@@ -14,7 +14,7 @@ struct nudgePrefs{
         let local_url = "file:///Library/Preferences/com.github.macadmins.Nudge.json"
 
         guard let fileURL = URL(string: local_url) else {
-            print("Could not find on-disk json")
+            Log.error(message: "Could not find \(local_url) file")
             return nil
         }
         
@@ -29,7 +29,7 @@ struct nudgePrefs{
                 return decodedData
 
             } catch let error {
-                print(error)
+                Log.error(message: error.localizedDescription)
                 return nil
             }
         }
