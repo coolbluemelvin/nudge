@@ -63,8 +63,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         // Temporary workaround for Big Sur bug
         let msg = "Due to a bug in Big Sur, Nudge cannot reliably use /usr/sbin/softwareupdate to download updates. See https://openradar.appspot.com/radar?id=4987491098558464 for more information and if you are impacted, duplicate this issue."
         softwareupdateDownloadLog.warning("\(msg, privacy: .public)")
-        return
-
+        
         if asyncronousSoftwareUpdate {
             DispatchQueue(label: "nudge-su", attributes: .concurrent).asyncAfter(deadline: .now(), execute: {
                 SoftwareUpdate().Download()
@@ -88,7 +87,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 @main
 struct Main: App {
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-    let manager = try! PolicyManager() // TODO: handle errors
+    let manager = PolicyManager() // TODO: handle errors
     var body: some Scene {
         #if DEBUG
         WindowGroup {
